@@ -1,0 +1,24 @@
+<h1>Meal List</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Calory</th>
+            <th scope="col">Protein</th>
+            <th scope="col">Fat</th>
+            <th scope="col">Carb</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for meal in meals %}
+        <tr>
+            <td>{{ meal.title }}</td>
+            <td>{{ meal.calory }}</td>
+            <td>{{ meal.protein }}</td>
+            <td>{{ meal.fat }}</td>
+            <td>{{ meal.carb }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
