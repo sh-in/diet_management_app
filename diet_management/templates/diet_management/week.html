@@ -1,0 +1,24 @@
+<h1>Week Calendar</h1>
+
+<table>
+    <thead>
+        <tr>
+            {% for w in week_names %}
+                <th>{{ w }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for day in week_days %}
+                <td>
+                    {% if week_first.month != day.month %}
+                        {{ day | date:"m/d" }}
+                    {% else %}
+                        {{ day.day }}
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
