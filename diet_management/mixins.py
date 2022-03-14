@@ -2,19 +2,27 @@ import calendar
 from collections import deque
 import datetime
 
+# base class for calendar
 class BaseCalendarMixin:
+    # 0 means it starts from Monday, if you set first_weekday as 6, it starts from Sunday
+    # this can be specified in views
     first_weekday = 0
-    week_names = ["月", "火", "水", "木", "金", "土", "日"]
+    week_names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
+    # to use calendar.Calendar function, create an instance
     def setup_calendar(self):
         self._calendar = calendar.Calendar(self.first_weekday)
 
+    # adjust for first_weekday, shift week_names
+    # to do that use deque
     def get_week_names(self):
         week_names = deque(self.week_names)
         week_names.rotate(-self.first_weekday)
         return week_names
 
+# class for week calendar
 class WeekCalendarMixin(BaseCalendarMixin):
+    # return each days in the week
     def get_week_days(self):
         month = self.kwargs.get('month')
         year = self.kwargs.get('year')
@@ -26,21 +34,30 @@ class WeekCalendarMixin(BaseCalendarMixin):
             date = datetime.date.today()
         
         for week in self._calendar.monthdatescalendar(date.year, date.month):
+            # in each week of the month, if the date is included in the week, it must be the week to display
             if date in week:
                 return week
 
+    # to get a week information
     def get_week_calendar(self):
         self.setup_calendar()
         days = self.get_week_days()
         first = days[0]
         last = days[-1]
         calendar_data = {
+            # today
             'now': datetime.date.today(),
+            # every day in the week
             'week_days': days,
+            # last week
             'week_previous': first - datetime.timedelta(days=7),
+            # next week
             'week_next': first + datetime.timedelta(days=7),
+            # a list of day of week
             'week_names': self.get_week_names(),
+            # first day of the week
             'week_first': first,
+            # last day of the week
             'week_last': last,
         }
         return calendar_data

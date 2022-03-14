@@ -1,4 +1,4 @@
-from pyexpat import model
+from calendar import firstweekday
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
 
@@ -10,8 +10,10 @@ class MealList(ListView):
     model = Meal
     context_object_name = "meals"
 
-class WeekCalendar(mixins.WeekCalendarMixin, TemplateView):
+class WeekCalendar(mixins.WeekCalendarMixin, mixins.BaseCalendarMixin, TemplateView):
     template_name = "diet_management/week.html"
+    # set the start day as Sunday
+    first_weekday = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

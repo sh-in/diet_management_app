@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# model for single meal
 class Meal(models.Model):
     title = models.CharField(max_length=50)
     calory = models.FloatField()
