@@ -1,5 +1,8 @@
 <h1>Week Calendar</h1>
 
+<a href="{% url 'week' week_previous.year week_previous.month week_previous.day %}">Previous week</a>
+<a href="{% url 'week' week_next.year week_next.month week_next.day %}">Next week</a>
+
 <table>
     <thead>
         <tr>
