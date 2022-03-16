@@ -7,6 +7,7 @@ class Meal(models.Model):
     protein = models.FloatField()
     fat = models.FloatField()
     carb = models.FloatField()
+    date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

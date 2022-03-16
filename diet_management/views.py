@@ -20,3 +20,14 @@ class WeekCalendar(mixins.WeekCalendarMixin, mixins.BaseCalendarMixin, TemplateV
         calendar_context = self.get_week_calendar()
         context.update(calendar_context)
         return context
+
+class WeekWithMealCalendar(mixins.WeekWithMealMixin, TemplateView):
+    template_name = "diet_management/week_with_meal.html"
+    model = Meal
+    date_field = 'date'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        calendar_context = self.get_week_calendar()
+        context.update(calendar_context)
+        return context

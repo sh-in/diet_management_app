@@ -1,7 +1,7 @@
 <h1>Week Calendar</h1>
 
-<a href="{% url 'week' week_previous.year week_previous.month week_previous.day %}">Previous week</a>
-<a href="{% url 'week' week_next.year week_next.month week_next.day %}">Next week</a>
+<a href="{% url 'week_with_meal' week_previous.year week_previous.month week_previous.day %}">Previous week</a>
+<a href="{% url 'week_with_meal' week_next.year week_next.month week_next.day %}">Next week</a>
 
 <table>
     <thead>
@@ -20,6 +20,16 @@
                     {% else %}
                         {{ day.day }}
                     {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for meals in week_day_meals.values %}
+                <td>
+                    {% for m in meals %}
+                        {{ m.title }}<br>
+                        {{ m.calory }} cal<br>
+                    {% endfor %}
                 </td>
             {% endfor %}
         </tr>

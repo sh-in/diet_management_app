@@ -1,4 +1,5 @@
 import calendar
+from cgitb import lookup
 from collections import deque
 import datetime
 
@@ -61,3 +62,26 @@ class WeekCalendarMixin(BaseCalendarMixin):
             'week_last': last,
         }
         return calendar_data
+
+# class for meal in the week
+class WeekWithMealMixin(WeekCalendarMixin):
+    def get_week_meals(self, start, end, days):
+        lookup = {
+            '{}__range'.format(self.date_field): (start, end)
+        }
+        queryset = self.model.objects.filter(**lookup)
+
+        day_meals = {day: [] for day in days}
+        for meal in queryset:
+            meal_date = getattr(meal, self.date_field)
+            day_meals[meal_date].append(meal)
+        return day_meals
+    
+    def get_week_calendar(self):
+        calendar_context = super().get_week_calendar()
+        calendar_context['week_day_meals'] = self.get_week_meals(
+            calendar_context['week_first'],
+            calendar_context['week_last'],
+            calendar_context['week_days']
+        )
+        return calendar_context
