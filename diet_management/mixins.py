@@ -65,13 +65,18 @@ class WeekCalendarMixin(BaseCalendarMixin):
 
 # class for meal in the week
 class WeekWithMealMixin(WeekCalendarMixin):
+    # get each day and meals
     def get_week_meals(self, start, end, days):
         lookup = {
-            '{}__range'.format(self.date_field): (start, end)
+            # create date__range: (start, end) dynamically
+            'date__range'.format(self.date_field): (start, end)
         }
+        # search object betwenn start and end
         queryset = self.model.objects.filter(**lookup)
 
+        # create a dictionary which key is day and value is []
         day_meals = {day: [] for day in days}
+        # each meal in queryset, get date and append it to the day_meals
         for meal in queryset:
             meal_date = getattr(meal, self.date_field)
             day_meals[meal_date].append(meal)
