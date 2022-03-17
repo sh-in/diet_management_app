@@ -1,6 +1,8 @@
 from calendar import firstweekday
+from dataclasses import field
 from django.shortcuts import render
-from django.views.generic import ListView, TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, TemplateView, CreateView
 
 from .models import Meal
 from . import mixins
@@ -9,6 +11,11 @@ from . import mixins
 class MealList(ListView):
     model = Meal
     context_object_name = "meals"
+
+class MealCreate(CreateView):
+    model = Meal
+    fields = "__all__"
+    success_url = reverse_lazy("week_with_meal")
 
 class WeekCalendar(mixins.WeekCalendarMixin, mixins.BaseCalendarMixin, TemplateView):
     template_name = "diet_management/week.html"
