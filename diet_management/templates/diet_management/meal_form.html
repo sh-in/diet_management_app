@@ -1,6 +1,9 @@
-<form action="" method="POST">{% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit">
-</form>
+{% extends 'diet_management/base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form layout='inline' %}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock content %}

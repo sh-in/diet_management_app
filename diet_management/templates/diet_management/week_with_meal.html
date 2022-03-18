@@ -1,3 +1,5 @@
+{% extends 'diet_management/base.html' %}
+{% block content %}
 <h1>Week Calendar</h1>
 
 <a href="{% url 'week_with_meal' week_previous.year week_previous.month week_previous.day %}">Previous week</a>
@@ -37,3 +39,4 @@
 </table>
 
 <p><a href="{% url 'create' %}">Create meal</a></p>
+{% endblock content %}

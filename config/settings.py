@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'diet_management.apps.DietManagementConfig',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
