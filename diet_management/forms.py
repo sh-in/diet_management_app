@@ -6,6 +6,9 @@ class MealPost(forms.ModelForm):
     class Meta():
         model = Meal
         fields = "__all__"
+        widgets = {
+            "date": forms.SelectDateWidget
+        }
         lables = {
             "title": "Meal name",
             "calory": "Calory",
