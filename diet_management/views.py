@@ -1,11 +1,10 @@
-from calendar import firstweekday
-from dataclasses import field
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView, CreateView
 
 from .models import Meal
 from . import mixins
+from . import forms
 
 # Create your views here.
 class MealList(ListView):
@@ -13,9 +12,24 @@ class MealList(ListView):
     context_object_name = "meals"
 
 class MealCreate(CreateView):
-    model = Meal
-    fields = "__all__"
-    success_url = reverse_lazy("week_with_meal")
+    def __init__(self):
+        self.params = {
+            "Message": "Please fill the blank.",
+            "form": forms.MealPost(),
+        }
+
+    def get(self, request):
+        return render(request, "diet_management/meal_form.html", context=self.params)
+
+    def post(self, request):
+        if request.method == "POST":
+            self.params["form"] = forms.MealPost(request.POST)
+
+            if self.params["form"].is_valid():
+                self.params["form"].save(commit=True)
+                self.params["Message"] = "Your meal has been sent."
+        
+        return render(request, "diet_management/meal_form.html", context=self.params)
 
 class WeekCalendar(mixins.WeekCalendarMixin, mixins.BaseCalendarMixin, TemplateView):
     template_name = "diet_management/week.html"
