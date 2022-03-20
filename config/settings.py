@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'diet_management.apps.DietManagementConfig',
     'django_bootstrap5',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
