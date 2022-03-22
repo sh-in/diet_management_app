@@ -2,10 +2,19 @@
 {% block content %}
 <h1>Week Calendar</h1>
 
-<a href="{% url 'week_with_meal' week_previous.year week_previous.month week_previous.day %}">Previous week</a>
-<a href="{% url 'week_with_meal' week_next.year week_next.month week_next.day %}">Next week</a>
+<div class="d-flex bd-highlight mb-3">
+    <div class="p-2">
+        <a class="btn btn-outline-secondary" href="{% url 'week_with_meal' week_previous.year week_previous.month week_previous.day %}">Previous week</a>
+    </div>
+    <div class="p-2">
+        <a class="btn btn-outline-primary" href="{% url 'week_with_meal' week_next.year week_next.month week_next.day %}">Next week</a>
+    </div>
+    <div class="ms-auto p-2">
+        <a class="btn btn-success" href="{% url 'create' %}">Create meal</a>
+    </div>
+</div>
 
-<table>
+<table class="table">
     <thead>
         <tr>
             {% for w in week_names %}
@@ -38,5 +47,4 @@
     </tbody>
 </table>
 
-<p><a href="{% url 'create' %}">Create meal</a></p>
 {% endblock content %}
