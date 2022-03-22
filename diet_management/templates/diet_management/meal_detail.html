@@ -1,0 +1,45 @@
+{% extends 'diet_management/base.html' %}
+{% block content %}
+<h1 class="text-center my-3">Meal detail</h1>
+
+<div class="card text-center mb-3 mx-auto" style="width: 50%;">
+    <h3 class="card-header">
+        {{ meal.title }}
+    </h3>
+    <div class="card-body">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th style="width: 50%;"></th>
+                    <th style="width: 50%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Calory</th>
+                    <td>{{ meal.calory }}</td>
+                </tr>
+                <tr>
+                    <th>Protein</th>
+                    <td>{{ meal.protein }}</td>
+                </tr>
+                <tr>
+                    <th>Fat</th>
+                    <td>{{ meal.fat }}</td>
+                </tr>
+                <tr>
+                    <th>Carb</th>
+                    <td>{{ meal.carb }}</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>{{ meal.date }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mx-auto" style="width: 50%;">
+    <a class="btn btn-outline-secondary" href="{% url 'week_with_meal' %}" role="button">back</a>
+</div>
+{% endblock content %}

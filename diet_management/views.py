@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, CreateView
+from django.views.generic import ListView, TemplateView, CreateView, DetailView
 
 from .models import Meal
 from . import mixins
@@ -57,3 +57,7 @@ class WeekWithMealCalendar(mixins.WeekWithMealMixin, TemplateView):
         calendar_context = self.get_week_calendar()
         context.update(calendar_context)
         return context
+
+class MealDetail(DetailView):
+    model = Meal
+    context_object_name = "meal"

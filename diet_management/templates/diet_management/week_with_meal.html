@@ -38,8 +38,9 @@
             {% for meals in week_day_meals.values %}
                 <td>
                     {% for m in meals %}
-                        {{ m.title }}<br>
-                        {{ m.calory }} cal<br>
+                        {{ m.title }}
+                        <a href="{% url 'detail' m.pk %}">detail</a>
+                        <br>
                     {% endfor %}
                 </td>
             {% endfor %}
