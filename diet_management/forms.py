@@ -4,7 +4,7 @@ from .models import Meal
 class MealPost(forms.ModelForm):
     class Meta():
         model = Meal
-        fields = '__all__'
+        fields = ("title", "calory", "protein", "fat", "carb", "date")
         labels = {
             'title': 'Meal name',
             'calory': 'Calory',

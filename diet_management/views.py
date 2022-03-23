@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, CreateView, DetailView
+from django.views.generic import ListView, TemplateView, CreateView, DetailView, UpdateView, DeleteView
 
 from .models import Meal
 from . import mixins
@@ -61,3 +61,13 @@ class WeekWithMealCalendar(mixins.WeekWithMealMixin, TemplateView):
 class MealDetail(DetailView):
     model = Meal
     context_object_name = "meal"
+
+class MealUpdate(UpdateView):
+    model = Meal
+    fields = ("title", "calory", "protein", "carb", "fat", "date")
+    success_url = reverse_lazy("week_with_meal")
+
+class MealDelete(DeleteView):
+    model = Meal
+    context_object_name = "meal"
+    success_url = reverse_lazy("week_with_meal")

@@ -39,7 +39,9 @@
                 <td>
                     {% for m in meals %}
                         {{ m.title }}
-                        <a href="{% url 'detail' m.pk %}">detail</a>
+                        <a href="{% url 'detail' m.pk %}">Detail</a>
+                        <a href="{% url 'update' m.pk %}">Update</a>
+                        <a href="{% url 'delete' m.pk %}">Delete</a>
                         <br>
                     {% endfor %}
                 </td>
