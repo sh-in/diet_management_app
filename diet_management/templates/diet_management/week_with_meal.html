@@ -23,6 +23,7 @@
         </tr>
     </thead>
     <tbody>
+        <!-- to show each day in a week -->
         <tr>
             {% for day in week_days %}
                 <td>
@@ -34,11 +35,13 @@
                 </td>
             {% endfor %}
         </tr>
+        <!-- to show each meal title -->
         <tr>
             {% for meals in week_day_meals.values %}
                 <td>
                     {% for m in meals %}
                         {{ m.title }}
+                        <br>
                         <a href="{% url 'detail' m.pk %}">Detail</a>
                         <a href="{% url 'update' m.pk %}">Update</a>
                         <a href="{% url 'delete' m.pk %}">Delete</a>
@@ -47,7 +50,14 @@
                 </td>
             {% endfor %}
         </tr>
+        <!-- to show each day calory -->
+        <tr>
+            {% for cal in week_day_calory.values %}
+                <td>
+                    {{ cal }}
+                </td>
+            {% endfor %}
+        </tr>
     </tbody>
 </table>
-
 {% endblock content %}

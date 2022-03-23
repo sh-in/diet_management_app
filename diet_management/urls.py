@@ -1,6 +1,6 @@
 from unicodedata import name
 from django.urls import path
-from .views import MealCreate, MealDelete, MealList, MealUpdate, WeekCalendar, WeekWithMealCalendar, MealDetail
+from .views import MealCreate, MealDelete, MealList, MealUpdate, WeekWithMealCalendar, MealDetail
 
 urlpatterns = [
     path("", MealList.as_view(), name="meal_list"),
