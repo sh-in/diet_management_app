@@ -55,6 +55,7 @@ class WeekWithMealCalendar(mixins.WeekWithMealMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         calendar_context = self.get_week_calendar()
+        print(calendar_context)
         context.update(calendar_context)
         return context
 

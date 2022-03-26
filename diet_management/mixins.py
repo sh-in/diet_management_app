@@ -81,22 +81,24 @@ class WeekWithMealMixin(WeekCalendarMixin):
             meal_date = getattr(meal, self.date_field)
             day_meals[meal_date].append(meal)
         return day_meals
-
-    def get_total_calory(self, start, end, days):
+    def get_total_pfc(self, start, end, days):
         lookup = {
             # create date__range: (start, end) dynamically
             'date__range'.format(self.date_field): (start, end)
         }
         # search object between start and end
         meals = self.model.objects.filter(**lookup)
-        # create a dictionary which key is day and value is total calory in the day
+        # create a dictionary which key is day and value is pfc dictionary in the day
         # set value as zore for initializing
-        day_calory = {day: 0 for day in days}
-        # each meal in meals, get date and add calory for that day
+        day_pfc = {day: {"cal": 0, "protein": 0, "fat": 0, "carb": 0} for day in days}
+        # each meal in meals, get date and add pfc for that day
         for meal in meals:
             meal_date = getattr(meal, self.date_field)
-            day_calory[meal_date] += meal.calory
-        return day_calory
+            day_pfc[meal_date]["cal"] += meal.calory
+            day_pfc[meal_date]["protein"] += meal.protein
+            day_pfc[meal_date]["fat"] += meal.fat
+            day_pfc[meal_date]["carb"] += meal.carb
+        return day_pfc
 
     def get_week_calendar(self):
         calendar_context = super().get_week_calendar()
@@ -105,7 +107,7 @@ class WeekWithMealMixin(WeekCalendarMixin):
             calendar_context['week_last'],
             calendar_context['week_days']
         )
-        calendar_context['week_day_calory'] = self.get_total_calory(
+        calendar_context['week_day_pfc'] = self.get_total_pfc(
             calendar_context['week_first'],
             calendar_context['week_last'],
             calendar_context['week_days']

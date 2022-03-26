@@ -50,11 +50,17 @@
                 </td>
             {% endfor %}
         </tr>
-        <!-- to show each day calory -->
+        <!-- to show each day pfc -->
         <tr>
-            {% for cal in week_day_calory.values %}
+            {% for pfc in week_day_pfc.values %}
                 <td>
-                    {{ cal }}
+                    {{ pfc.cal }}cal
+                    <br>
+                    P:{{ pfc.protein }}g
+                    <br>
+                    F:{{ pfc.fat }}g
+                    <br>
+                    C:{{ pfc.carb }}g
                 </td>
             {% endfor %}
         </tr>
