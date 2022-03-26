@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # model for single meal
 class Meal(models.Model):
@@ -12,3 +13,12 @@ class Meal(models.Model):
 
     def __str__(self):
         return self.title
+
+class Account(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    last_name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.user.username
