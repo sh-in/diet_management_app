@@ -1,9 +1,8 @@
-from unicodedata import name
 from django.urls import path
-from .views import MealCreate, MealDelete, MealList, MealUpdate, WeekWithMealCalendar, MealDetail
+from .views import MealCreate, MealDelete, MealUpdate, WeekWithMealCalendar, MealDetail, AccountRegistration
 
 urlpatterns = [
-    path("", MealList.as_view(), name="meal_list"),
+    path("", AccountRegistration.as_view(), name="registration"),
     path("week_with_meal/", WeekWithMealCalendar.as_view(), name="week_with_meal"),
     path("week_with_meal/<int:year>/<int:month>/<int:day>/", WeekWithMealCalendar.as_view(), name="week_with_meal"),
     path("create/", MealCreate.as_view(), name="create"),
