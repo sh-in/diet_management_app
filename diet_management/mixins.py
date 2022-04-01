@@ -93,11 +93,12 @@ class WeekWithMealMixin(WeekCalendarMixin):
         day_pfc = {day: {"cal": 0, "protein": 0, "fat": 0, "carb": 0} for day in days}
         # each meal in meals, get date and add pfc for that day
         for meal in meals:
-            meal_date = getattr(meal, self.date_field)
-            day_pfc[meal_date]["cal"] += meal.calory
-            day_pfc[meal_date]["protein"] += meal.protein
-            day_pfc[meal_date]["fat"] += meal.fat
-            day_pfc[meal_date]["carb"] += meal.carb
+            if self.request.user == meal.user:
+                meal_date = getattr(meal, self.date_field)
+                day_pfc[meal_date]["cal"] += meal.calory
+                day_pfc[meal_date]["protein"] += meal.protein
+                day_pfc[meal_date]["fat"] += meal.fat
+                day_pfc[meal_date]["carb"] += meal.carb
         return day_pfc
 
     def get_week_calendar(self):

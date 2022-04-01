@@ -11,7 +11,7 @@ from . import mixins
 from . import forms
 
 # Create your views here.
-# for calendar
+# Calendar
 class WeekCalendar(mixins.WeekCalendarMixin, mixins.BaseCalendarMixin, TemplateView, LoginRequiredMixin):
     template_name = "diet_management/week.html"
     # set the start day as Sunday
@@ -32,6 +32,7 @@ class WeekWithMealCalendar(LoginRequiredMixin, mixins.WeekWithMealMixin, Templat
         context = super().get_context_data(**kwargs)
         calendar_context = self.get_week_calendar()
         print(calendar_context)
+        print(self.request.user)
         context.update(calendar_context)
         return context
 
@@ -78,7 +79,7 @@ class MealDelete(DeleteView, LoginRequiredMixin):
     context_object_name = "meal"
     success_url = reverse_lazy("week_with_meal")
 
-# for register, login, and logout
+# Register, Login, and Logout
 #Login
 def Login(request):
     #POST
