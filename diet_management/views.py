@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, TemplateView, CreateView, DetailView, UpdateView, DeleteView
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 
 from .models import Meal
@@ -34,6 +35,7 @@ class MealCreate(CreateView):
         
         return render(request, "diet_management/meal_form.html", context=self.params)
 
+# for calendar
 class WeekCalendar(mixins.WeekCalendarMixin, mixins.BaseCalendarMixin, TemplateView):
     template_name = "diet_management/week.html"
     # set the start day as Sunday
@@ -71,6 +73,44 @@ class MealDelete(DeleteView):
     context_object_name = "meal"
     success_url = reverse_lazy("week_with_meal")
 
+# for register, login, and logout
+#Login
+def Login(request):
+    #POST
+    if request.method == 'POST':
+        # get user id and password through form
+        ID = request.POST.get('userid')
+        Pass = request.POST.get('password')
+
+        #django authentication
+        user = authenticate(username=ID, password=Pass)
+
+        #user authentication
+        if user:
+            #judge user activation
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('home'))
+            else:
+                return HttpResponse("This account is not valid.")
+        else:
+            return HttpResponse("Wrong Login ID or Password.")
+    else:
+        return render(request, "diet_management/login.html")
+
+#Logout
+@login_required
+def Logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('Login'))
+
+#Home
+@login_required
+def home(request):
+    params = {'UserID': request.user,}
+    return render(request, "diet_management/home.html", context=params)
+
+#Registration
 class AccountRegistration(TemplateView):
     def __init__(self):
         self.params = {
@@ -80,6 +120,9 @@ class AccountRegistration(TemplateView):
         }
     
     def get(self, request):
+        self.params["account_form"] = forms.AccountForm()
+        self.params["add_account_form"] = forms.AddAcountForm()
+        self.params["AccountCreate"] = False
         return render(request, "diet_management/register.html", context=self.params)
 
     def post(self, request):
@@ -91,7 +134,7 @@ class AccountRegistration(TemplateView):
             account = self.params["account_form"].save()
             # hash password
             account.set_password(account.password)
-            # save hased password
+            # save hashed password
             account.save()
             
             add_account = self.params["add_account_form"].save(commit=False)

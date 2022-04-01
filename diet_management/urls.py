@@ -1,8 +1,11 @@
 from django.urls import path
-from .views import MealCreate, MealDelete, MealUpdate, WeekWithMealCalendar, MealDetail, AccountRegistration
+from .views import MealCreate, MealDelete, MealUpdate, WeekWithMealCalendar, MealDetail, AccountRegistration, Login, Logout, home
 
 urlpatterns = [
-    path("", AccountRegistration.as_view(), name="registration"),
+    path("", Login, name="Login"),
+    path("logout", Logout, name="Logout"),
+    path("register", AccountRegistration.as_view(), name="register"),
+    path("home", home, name="home"),
     path("week_with_meal/", WeekWithMealCalendar.as_view(), name="week_with_meal"),
     path("week_with_meal/<int:year>/<int:month>/<int:day>/", WeekWithMealCalendar.as_view(), name="week_with_meal"),
     path("create/", MealCreate.as_view(), name="create"),

@@ -1,0 +1,33 @@
+{% load django_bootstrap5 %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <title></title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="{% url 'Login' %}" method="POST">
+        {% csrf_token %}
+        <table class="">
+            <tr>
+                <td><label for="userid">ユーザーID:</label></td>
+                <td><input type="text" name="userid"></td>
+                <td><label for="password">パスワード：</label></td>
+                <td><input type="password" name="password"></td>
+            </tr>
+        </table>
+    
+        <input type="submit" class="btn" value="Login">
+    </form>
+    <p>
+        Do you have account?:
+        <a href="{% url 'register' %}">Create account</a>
+    </p>
+</body>
+</html>
