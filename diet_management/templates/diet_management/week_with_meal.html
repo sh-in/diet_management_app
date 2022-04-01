@@ -43,12 +43,14 @@
             {% for meals in week_day_meals.values %}
                 <td>
                     {% for m in meals %}
-                        {{ m.title }}
-                        <br>
-                        <a href="{% url 'detail' m.pk %}">Detail</a>
-                        <a href="{% url 'update' m.pk %}">Update</a>
-                        <a href="{% url 'delete' m.pk %}">Delete</a>
-                        <br>
+                        {% if user.get_username == m.author %}
+                            {{ m.title }}
+                            <br>
+                            <a href="{% url 'detail' m.pk %}">Detail</a>
+                            <a href="{% url 'update' m.pk %}">Update</a>
+                            <a href="{% url 'delete' m.pk %}">Delete</a>
+                            <br>
+                        {% endif %}
                     {% endfor %}
                 </td>
             {% endfor %}

@@ -11,31 +11,6 @@ from . import mixins
 from . import forms
 
 # Create your views here.
-class MealCreate(CreateView, LoginRequiredMixin):
-    # define initial variable
-    def __init__(self):
-        self.params = {
-            "Message": "Please fill the blank.",
-            "form": forms.MealPost(),
-        }
-
-    # GET process
-    def get(self, request):
-        return render(request, "diet_management/meal_form.html", context=self.params)
-
-    # POST process
-    def post(self, request):
-        if request.method == "POST":
-            self.params["form"] = forms.MealPost(request.POST)
-
-            # if form is valid
-            if self.params["form"].is_valid():
-                # save information to the database
-                self.params["form"].save(commit=True)
-                self.params["Message"] = "Your meal has been sent."
-        
-        return render(request, "diet_management/meal_form.html", context=self.params)
-
 # for calendar
 class WeekCalendar(mixins.WeekCalendarMixin, mixins.BaseCalendarMixin, TemplateView, LoginRequiredMixin):
     template_name = "diet_management/week.html"
@@ -59,6 +34,35 @@ class WeekWithMealCalendar(LoginRequiredMixin, mixins.WeekWithMealMixin, Templat
         print(calendar_context)
         context.update(calendar_context)
         return context
+
+# Meal
+class MealCreate(CreateView, LoginRequiredMixin):
+    # define initial variable
+    def __init__(self):
+        self.params = {
+            "Message": "Please fill the blank.",
+            "form": forms.MealPost(),
+        }
+
+    # GET process
+    def get(self, request):
+        return render(request, "diet_management/meal_form.html", context=self.params)
+
+    # POST process
+    def post(self, request):
+        if request.method == "POST":
+            self.params["form"] = forms.MealPost(request.POST)
+
+            # if form is valid
+            if self.params["form"].is_valid():
+                # save information to the database
+                # self.params["form"].save(commit=True)
+                meal = self.params["form"].save(commit=False)
+                meal.author = request.user
+                meal.save()
+                self.params["Message"] = "Your meal has been sent."
+        
+        return render(request, "diet_management/meal_form.html", context=self.params)
 
 class MealDetail(DetailView, LoginRequiredMixin):
     model = Meal
