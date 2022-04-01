@@ -23,11 +23,8 @@
             </tr>
         </table>
     
-        <input type="submit" class="btn" value="Login">
+        <input type="submit" class="btn btn-primary" value="Login">
     </form>
-    <p>
-        Do you have account?:
-        <a href="{% url 'register' %}">Create account</a>
-    </p>
+    <a class="btn btn-success" href="{% url 'register' %}" role="button">Create account</a>
 </body>
 </html>

@@ -3,6 +3,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, TemplateView, CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, HttpResponse
 
 from .models import Meal
@@ -10,7 +11,7 @@ from . import mixins
 from . import forms
 
 # Create your views here.
-class MealCreate(CreateView):
+class MealCreate(CreateView, LoginRequiredMixin):
     # define initial variable
     def __init__(self):
         self.params = {
@@ -36,7 +37,7 @@ class MealCreate(CreateView):
         return render(request, "diet_management/meal_form.html", context=self.params)
 
 # for calendar
-class WeekCalendar(mixins.WeekCalendarMixin, mixins.BaseCalendarMixin, TemplateView):
+class WeekCalendar(mixins.WeekCalendarMixin, mixins.BaseCalendarMixin, TemplateView, LoginRequiredMixin):
     template_name = "diet_management/week.html"
     # set the start day as Sunday
     first_weekday = 6
@@ -47,7 +48,7 @@ class WeekCalendar(mixins.WeekCalendarMixin, mixins.BaseCalendarMixin, TemplateV
         context.update(calendar_context)
         return context
 
-class WeekWithMealCalendar(mixins.WeekWithMealMixin, TemplateView):
+class WeekWithMealCalendar(LoginRequiredMixin, mixins.WeekWithMealMixin, TemplateView):
     template_name = "diet_management/week_with_meal.html"
     model = Meal
     date_field = 'date'
@@ -59,16 +60,16 @@ class WeekWithMealCalendar(mixins.WeekWithMealMixin, TemplateView):
         context.update(calendar_context)
         return context
 
-class MealDetail(DetailView):
+class MealDetail(DetailView, LoginRequiredMixin):
     model = Meal
     context_object_name = "meal"
 
-class MealUpdate(UpdateView):
+class MealUpdate(UpdateView, LoginRequiredMixin):
     model = Meal
     fields = ("title", "calory", "protein", "carb", "fat", "date")
     success_url = reverse_lazy("week_with_meal")
 
-class MealDelete(DeleteView):
+class MealDelete(DeleteView, LoginRequiredMixin):
     model = Meal
     context_object_name = "meal"
     success_url = reverse_lazy("week_with_meal")

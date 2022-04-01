@@ -12,8 +12,7 @@
 </head>
 <body>
     <h1>Welcome {{ UserID }}</h1>
-    <p>
-        <a href="{% url 'Logout' %}">Logout</a>
-    </p>
+    <a class="btn btn-primary" href="{% url 'week_with_meal' %}" role="button">Go to Week Calendar</a>
+    <a class="btn btn-secondary" href="{% url 'Logout' %}" role="button">Logout</a>
 </body>
 </html>
