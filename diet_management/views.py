@@ -58,7 +58,7 @@ class MealCreate(CreateView, LoginRequiredMixin):
                 # save information to the database
                 # self.params["form"].save(commit=True)
                 meal = self.params["form"].save(commit=False)
-                meal.author = request.user
+                meal.user = request.user
                 meal.save()
                 self.params["Message"] = "Your meal has been sent."
         

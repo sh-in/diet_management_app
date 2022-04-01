@@ -43,7 +43,7 @@
             {% for meals in week_day_meals.values %}
                 <td>
                     {% for m in meals %}
-                        {% if user.get_username == m.author %}
+                        {% if user == m.user %}
                             {{ m.title }}
                             <br>
                             <a href="{% url 'detail' m.pk %}">Detail</a>

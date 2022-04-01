@@ -12,7 +12,8 @@ class Meal(models.Model):
     carb = models.FloatField()
     date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    author = models.CharField(max_length=50, null=True)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.title
