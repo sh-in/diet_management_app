@@ -27,6 +27,8 @@ class WeekWithMealCalendar(LoginRequiredMixin, mixins.WeekWithMealMixin, Templat
     template_name = "diet_management/week_with_meal.html"
     model = Meal
     date_field = 'date'
+    # set the start day as Sunday
+    first_weekday = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
