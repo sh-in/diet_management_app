@@ -50,3 +50,20 @@ class AddAcountForm(forms.ModelForm):
             'last_name': "Last Name",
             'first_name': "First Name",
         }
+
+# PFC
+class PFCBalance(forms.ModelForm):
+    class Meta():
+        model = Account
+        fields = (
+            'calory',
+            'protein',
+            'fat',
+            'carb'
+        )
+        labels = {
+            'calory': "Calory",
+            'protein': "Protein",
+            'fat': "Fat",
+            'carb': "Carb",
+        }
