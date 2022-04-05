@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, TemplateView, CreateView, DetailView, UpdateView, DeleteView
@@ -155,3 +156,15 @@ class AccountRegistration(TemplateView):
             print(self.params["account_form"].errors)
 
         return render(request, "diet_management/register.html", context=self.params)
+
+# PFC
+class PFC(TemplateView, LoginRequiredMixin):
+    template_name = "diet_management/calc_pfc.html"
+    def __init__(self):
+        self.params = {
+            "pfc_form": forms.PFCBalance(),
+        }
+    
+    def get(self, request):
+        self.params["pfc_form"] = forms.PFCBalance()
+        return render(request, "diet_management/calc_pfc.html", context=self.params)

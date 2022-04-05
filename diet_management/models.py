@@ -23,6 +23,7 @@ class Account(models.Model):
 
     last_name = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100)
+    
     calory = models.FloatField(null=True)
     protein = models.FloatField(null=True)
     fat = models.FloatField(null=True)
