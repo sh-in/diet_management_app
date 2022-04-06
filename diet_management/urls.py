@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import MealCreate, MealDelete, MealUpdate, WeekWithMealCalendar, MealDetail, AccountRegistration, Login, Logout, home
+from .views import MealCreate, MealDelete, MealUpdate, WeekWithMealCalendar, MealDetail, AccountRegistration, PFC, Login, Logout, home
 
 urlpatterns = [
     path("", Login, name="Login"),
@@ -12,4 +12,5 @@ urlpatterns = [
     path("detail/<int:pk>", MealDetail.as_view(), name="detail"),
     path("update/<int:pk>", MealUpdate.as_view(), name="update"),
     path("delete/<int:pk>", MealDelete.as_view(), name="delete"),
+    path("calc_pfc", PFC.as_view(), name="calculate"),
 ]

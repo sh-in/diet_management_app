@@ -166,5 +166,13 @@ class PFC(TemplateView, LoginRequiredMixin):
         }
     
     def get(self, request):
-        self.params["pfc_form"] = forms.PFCBalance()
+        return render(request, "diet_management/calc_pfc.html", context=self.params)
+
+    def post(self, request):
+        if request.method == "POST":
+            self.params["pfc_form"] = forms.PFCBalance(request.POST)
+
+            if self.params["pfc_form"].is_valid():
+                pfc = self.params["pfc_form"].save()
+        
         return render(request, "diet_management/calc_pfc.html", context=self.params)
