@@ -23,7 +23,9 @@ class Account(models.Model):
 
     last_name = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100)
-    
+
+    # this doesn't work
+    # I couldn't show each form's blank space in html
     calory = models.FloatField(null=True)
     protein = models.FloatField(null=True)
     fat = models.FloatField(null=True)

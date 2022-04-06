@@ -158,6 +158,7 @@ class AccountRegistration(TemplateView):
         return render(request, "diet_management/register.html", context=self.params)
 
 # PFC
+# This doesn't work
 class PFC(TemplateView, LoginRequiredMixin):
     template_name = "diet_management/calc_pfc.html"
     def __init__(self):
@@ -166,6 +167,7 @@ class PFC(TemplateView, LoginRequiredMixin):
         }
     
     def get(self, request):
+        self.params["pfc_form"] = forms.PFCBalance()
         return render(request, "diet_management/calc_pfc.html", context=self.params)
 
     def post(self, request):
@@ -174,5 +176,6 @@ class PFC(TemplateView, LoginRequiredMixin):
 
             if self.params["pfc_form"].is_valid():
                 pfc = self.params["pfc_form"].save()
+                pfc.save()
         
         return render(request, "diet_management/calc_pfc.html", context=self.params)

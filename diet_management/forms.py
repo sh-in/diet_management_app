@@ -52,6 +52,7 @@ class AddAcountForm(forms.ModelForm):
         }
 
 # PFC
+# This doesn't work
 class PFCBalance(forms.ModelForm):
     class Meta():
         model = Account
@@ -59,7 +60,7 @@ class PFCBalance(forms.ModelForm):
             'calory',
             'protein',
             'fat',
-            'carb'
+            'carb',
         )
         labels = {
             'calory': "Calory",
