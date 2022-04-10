@@ -2,6 +2,73 @@
 {% load widget_tweaks %}
 {% block content %}
     <h1>Calculate</h1>
+
+    <!-- input form for calculating PFC, but don't send -->
+    <!-- gendar -->
+    <div class="mb-3">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gendar" value="male" checked>
+            <label class="form-check-label">
+                Male
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gendar" value="female">
+            <label class="form-check-label">
+                Female
+            </label>
+        </div>
+    </div>
+    <!-- age -->
+    <div class="mb-3">
+        <label class="form-label">Age</label>
+        <input type="number" id="age" min="0" max="130">
+    </div>
+    <!-- height -->
+    <div class="mb-3">
+        <label class="form-label">Height</label>
+        <input type="number" id="height" min="100.0" max="200.0" step="0.1">cm
+    </div>
+    <!-- weight -->
+    <div class="mb-3">
+        <div class="mb-3">
+            <label class="form-label">Weight</label>
+            <input type="number" id="weight" min="10.0" max="200.0" step="0.1">kg
+        </div>
+    </div>
+    <!-- diet style -->
+    <div class="mb-3">
+        <label class="form-label">Diet style</label>
+        <select class="form-select" id="diet_style">
+            <option value="">-</option>
+            <option value="balance">Balance</option>
+            <option value="high_protein">High protein</option>
+        </select>
+    </div>
+    <!-- active level -->
+    <div class="mb-3">
+        <label class="form-label">Active level</label>
+        <select class="form-select" id="activity_level">
+            <option value="">-</option>
+            <option value="1.9">Very high</option>
+            <option value="1.725">High</option>
+            <option value="1.55">Moderate</option>
+            <option value="1.375">Low</option>
+            <option value="1.2">Very low</option>
+        </select>
+    </div>
+    <!-- purpose -->
+    <div class="mb-3">
+        <label class="form-label">Purpose</label>
+        <select class="form-select" id="purpose">
+            <option value="">-</option>
+            <option value="200">Gain</option>
+            <option value="0">Maintaine</option>
+            <option value="-500">Cutting</option>
+        </select>
+    </div>
+    <button type="button" class="btn btn-success" id="btn">Calculate</button>
+
     <form action="" method="POST">
         {% csrf_token %}
         <div class="form-group mb-3">
