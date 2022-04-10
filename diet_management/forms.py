@@ -52,7 +52,6 @@ class AddAcountForm(forms.ModelForm):
         }
 
 # PFC
-# This doesn't work
 class PFCBalance(forms.ModelForm):
     class Meta():
         model = Account

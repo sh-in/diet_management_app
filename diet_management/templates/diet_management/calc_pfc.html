@@ -1,4 +1,3 @@
-<!-- This doesn't work -->
 {% extends 'diet_management/base.html' %}
 {% load widget_tweaks %}
 {% block content %}
@@ -6,20 +5,20 @@
     <form action="" method="POST">
         {% csrf_token %}
         <div class="form-group mb-3">
-            {{ form.calory.label }}
-            {{ form.calory | add_class:"form-control" }}
+            {{ pfc_form.calory.label }}
+            {{ pfc_form.calory | add_class:"form-control" }}
         </div>
         <div class="form-group mb-3">
-            {{ form.protein.label }}
-            {{ form.protein | add_class:"form-control" }}
+            {{ pfc_form.protein.label }}
+            {{ pfc_form.protein | add_class:"form-control" }}
         </div>
         <div class="form-group mb-3">
-            {{ form.fat.label }}
-            {{ form.fat | add_class:"form-control" }}
+            {{ pfc_form.fat.label }}
+            {{ pfc_form.fat | add_class:"form-control" }}
         </div>
         <div class="form-group mb-3">
-            {{ form.carb.label }}
-            {{ form.carb | add_class:"form-control" }}
+            {{ pfc_form.carb.label }}
+            {{ pfc_form.carb | add_class:"form-control" }}
         </div>
         <input class="btn btn-primary" type="submit" value="Register">
     </form>

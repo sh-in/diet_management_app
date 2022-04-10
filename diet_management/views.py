@@ -158,7 +158,6 @@ class AccountRegistration(TemplateView):
         return render(request, "diet_management/register.html", context=self.params)
 
 # PFC
-# This doesn't work
 class PFC(TemplateView, LoginRequiredMixin):
     template_name = "diet_management/calc_pfc.html"
     def __init__(self):
