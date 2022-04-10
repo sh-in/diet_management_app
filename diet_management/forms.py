@@ -53,6 +53,11 @@ class AddAcountForm(forms.ModelForm):
 
 # PFC
 class PFCBalance(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['readonly'] = 'readonly'
+
     class Meta():
         model = Account
         fields = (

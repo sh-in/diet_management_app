@@ -34,6 +34,7 @@ class WeekWithMealCalendar(LoginRequiredMixin, mixins.WeekWithMealMixin, Templat
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         calendar_context = self.get_week_calendar()
+        # test code
         print(calendar_context)
         print(self.request.user)
         context.update(calendar_context)

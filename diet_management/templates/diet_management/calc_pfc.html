@@ -20,6 +20,7 @@
             {{ pfc_form.carb.label }}
             {{ pfc_form.carb | add_class:"form-control" }}
         </div>
+        <a class="btn btn-outline-secondary" href="{% url 'week_with_meal' %}" role="button">back</a>
         <input class="btn btn-primary" type="submit" value="Register">
     </form>
 {% endblock content %}
