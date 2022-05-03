@@ -62,7 +62,7 @@
         <tr>
             {% for pfc in week_day_pfc.values %}
                 <td>
-                    {{ pfc.cal }}cal
+                    {{ pfc.cal }}kcal
                     <br>
                     P:{{ pfc.protein }}g
                     <br>
@@ -74,4 +74,40 @@
         </tr>
     </tbody>
 </table>
+<!-- to show desired pfc for each day -->
+<div class="card text-center mb3 mx-auto" style="width: 50%;">
+    <h3 class="card-header">Desired PFC Balance</h3>
+    <div class="card-body">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th style="width: 50%;"></th>
+                    <th style="width: 50%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in accounts %}
+                    {% if data in account %}
+                        <tr>
+                            <th>Calory</th>
+                            <td>{{ data.calory }}kcal</td>
+                        </tr>
+                        <tr>
+                            <th>Protein</th>
+                            <td>P:{{ data.protein }}g</td>
+                        </tr>
+                        <tr>
+                            <th>Fat</th>
+                            <td>F:{{ data.fat }}g</td>
+                        </tr>
+                        <tr>
+                            <th>Carb</th>
+                            <td>C:{{ data.carb }}g</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock content %}

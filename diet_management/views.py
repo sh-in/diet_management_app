@@ -34,16 +34,17 @@ class WeekWithMealCalendar(LoginRequiredMixin, mixins.WeekWithMealMixin, Templat
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            "account": Account.objects
+            "account": Account.objects.filter(user=self.request.user),
+            "accounts": Account.objects.all()
         })
         calendar_context = self.get_week_calendar()
         # test code
-        print(calendar_context)
-        print(self.request.user)
-        # to show current login user account
-        print(context.get("account").filter(user=self.request.user))
-        # to show current login user account calory
-        print(context.get("account").filter(user=self.request.user).values('calory'))
+        # print(calendar_context)
+        # print(self.request.user)
+        # print(context.get("account").values("calory"))
+        # print(context.get("account").values())
+        # print(context.get("account"))
+        # print(Account.objects.filter(user=self.request.user))
         context.update(calendar_context)
         return context
 
