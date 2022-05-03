@@ -1,5 +1,9 @@
 {% extends 'diet_management/base.html' %}
 {% load widget_tweaks %}
+{% load static %}
+{% block js %}
+<script type="text/javascript" src="{% static 'javascript/calc_pfc.js' %}"></script>
+{% endblock %}
 {% block content %}
     <h1>Calculate</h1>
 

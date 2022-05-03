@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, HttpResponse
 
-from .models import Meal
+from .models import Meal, Account
 from . import mixins
 from . import forms
 
@@ -33,10 +33,17 @@ class WeekWithMealCalendar(LoginRequiredMixin, mixins.WeekWithMealMixin, Templat
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context.update({
+            "account": Account.objects
+        })
         calendar_context = self.get_week_calendar()
         # test code
         print(calendar_context)
         print(self.request.user)
+        # to show current login user account
+        print(context.get("account").filter(user=self.request.user))
+        # to show current login user account calory
+        print(context.get("account").filter(user=self.request.user).values('calory'))
         context.update(calendar_context)
         return context
 
@@ -175,7 +182,8 @@ class PFC(TemplateView, LoginRequiredMixin):
             self.params["pfc_form"] = forms.PFCBalance(request.POST)
 
             if self.params["pfc_form"].is_valid():
-                pfc = self.params["pfc_form"].save()
+                pfc = self.params["pfc_form"].save(commit=False)
+                pfc.user = request.user
                 pfc.save()
-        
+
         return render(request, "diet_management/calc_pfc.html", context=self.params)
