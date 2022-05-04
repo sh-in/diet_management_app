@@ -1,5 +1,5 @@
 from multiprocessing import context
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, TemplateView, CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
@@ -32,6 +32,7 @@ class WeekWithMealCalendar(LoginRequiredMixin, mixins.WeekWithMealMixin, Templat
     first_weekday = 6
 
     def get_context_data(self, **kwargs):
+        print(Account.objects.filter(user=self.request.user).get().calory)
         context = super().get_context_data(**kwargs)
         context.update({
             "account": Account.objects.filter(user=self.request.user),
@@ -75,6 +76,7 @@ class MealCreate(CreateView, LoginRequiredMixin):
                 meal.user = request.user
                 meal.save()
                 self.params["Message"] = "Your meal has been sent."
+                return redirect("/week_with_meal/")
         
         return render(request, "diet_management/meal_form.html", context=self.params)
 
@@ -180,12 +182,23 @@ class PFC(TemplateView, LoginRequiredMixin):
         return render(request, "diet_management/calc_pfc.html", context=self.params)
 
     def post(self, request):
+        # check out the account exists
+        try:
+            account = request.user.account
+        except Account.DoesNotExist:
+            account = Account(user=request.user)
+
+
         if request.method == "POST":
-            self.params["pfc_form"] = forms.PFCBalance(request.POST)
+            self.params["pfc_form"] = forms.PFCBalance(request.POST, instance=account)
 
             if self.params["pfc_form"].is_valid():
-                pfc = self.params["pfc_form"].save(commit=False)
-                pfc.user = request.user
-                pfc.save()
+                self.params["pfc_form"].save()
+                # pfc = self.params["pfc_form"].save(commit=False)
+                # pfc.user = request.user
+                # pfc.save()
+                return redirect("week_with_meal/")
+            else:
+                self.params["pfc_form"] = forms.PFCBalance(instance=account)
 
         return render(request, "diet_management/calc_pfc.html", context=self.params)

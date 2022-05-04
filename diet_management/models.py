@@ -26,10 +26,10 @@ class Account(models.Model):
 
     # this doesn't work
     # I couldn't show each form's blank space in html
-    calory = models.FloatField(null=True)
-    protein = models.FloatField(null=True)
-    fat = models.FloatField(null=True)
-    carb = models.FloatField(null=True)
+    calory = models.FloatField(null=True, default=0)
+    protein = models.FloatField(null=True, default=0)
+    fat = models.FloatField(null=True, default=0)
+    carb = models.FloatField(null=True, default=0)
 
     def __str__(self):
         return self.user.username
