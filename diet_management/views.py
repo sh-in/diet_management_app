@@ -35,7 +35,8 @@ class WeekWithMealCalendar(LoginRequiredMixin, mixins.WeekWithMealMixin, Templat
         context = super().get_context_data(**kwargs)
         context.update({
             "account": Account.objects.filter(user=self.request.user),
-            "accounts": Account.objects.all()
+            "accounts": Account.objects.all(),
+            "calory80": Account.objects.filter(user=self.request.user).get().calory*0.8,
         })
         calendar_context = self.get_week_calendar()
         # test code
@@ -44,7 +45,7 @@ class WeekWithMealCalendar(LoginRequiredMixin, mixins.WeekWithMealMixin, Templat
         # print(context.get("account").values("calory"))
         # print(context.get("account").values())
         # print(context.get("account"))
-        # print(Account.objects.filter(user=self.request.user))
+        # print(Account.objects.filter(user=self.request.user).get().calory*0.8)
         context.update(calendar_context)
         return context
 

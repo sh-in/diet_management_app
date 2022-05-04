@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<table class="table">
+<table class="table" id="calendar">
     <thead>
         <tr>
             {% for w in week_names %}
@@ -61,15 +61,33 @@
         <!-- to show each day pfc -->
         <tr>
             {% for pfc in week_day_pfc.values %}
-                <td>
-                    {{ pfc.cal }}kcal
-                    <br>
-                    P:{{ pfc.protein }}g
-                    <br>
-                    F:{{ pfc.fat }}g
-                    <br>
-                    C:{{ pfc.carb }}g
-                </td>
+            <td>
+                {{ pfc.cal }}kcal
+                <br>
+                P:{{ pfc.protein }}g
+                <br>
+                F:{{ pfc.fat }}g
+                <br>
+                C:{{ pfc.carb }}g
+            </td>
+            {% endfor %}
+        </tr>
+        <!-- to show your score -->
+        <tr>
+            {% for data in accounts %}
+                {% if data.user == user %}
+                    {% for pfc in week_day_pfc.values %}
+                        {% if pfc.cal == 0 %}
+                            <td>No data</td>
+                        {% elif pfc.cal < calory80 %}
+                            <td>You need to eat more</td>
+                        {% elif pfc.cal > data.calory %}
+                            <td>You are eating too much</td>
+                        {% else %}
+                            <td>Good job</td>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             {% endfor %}
         </tr>
     </tbody>
@@ -87,7 +105,7 @@
             </thead>
             <tbody>
                 {% for data in accounts %}
-                    {% if data in account %}
+                    {% if data.user == user %}
                         <tr>
                             <th>Calory</th>
                             <td>{{ data.calory }}kcal</td>
