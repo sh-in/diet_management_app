@@ -111,7 +111,7 @@ def Login(request):
             #judge user activation
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('home'))
+                return HttpResponseRedirect(reverse('week_with_meal'))
             else:
                 return HttpResponse("This account is not valid.")
         else:
@@ -124,12 +124,6 @@ def Login(request):
 def Logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('Login'))
-
-#Home
-@login_required
-def home(request):
-    params = {'UserID': request.user,}
-    return render(request, "diet_management/home.html", context=params)
 
 #Registration
 class AccountRegistration(TemplateView):

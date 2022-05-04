@@ -14,6 +14,8 @@
     <h1>Sing up</h1>
     {% if AccountCreate %}
         <h1>Registration Complete</h1>
+        <a class="btn btn-primary" href="{% url 'Login' %}" role="button">Login</a>
+        <a class="btn btn-secondary" href="{% url 'Logout' %}" role="button">Logout</a>
     {% else %}
         <form enctype="multipart/form-data" method="POST">
             {% csrf_token %}
